@@ -32,7 +32,7 @@ document
             text: "Anda berhasil mendaftar. Silakan login untuk melanjutkan.",
           }).then((result) => {
             if (result.isConfirmed) {
-              window.location.href = "index.html";
+              window.location.href = "login.html";
             }
           });
         } else {

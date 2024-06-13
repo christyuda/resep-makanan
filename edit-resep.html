@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Resep Makanan Dashboard</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="assets/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["assets/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+    <style>
+      h3 {
+          font-family: 'Arial', sans-serif; /* Contoh penggunaan font */
+          color: #333; /* Warna teks */
+          font-size: 24px; /* Ukuran font */
+          font-weight: bold; /* Berat font */
+      }
+
+      h4 {
+          font-family: 'Arial', sans-serif;
+          color: #555;
+          font-size: 18px;
+          font-style: italic; /* Gaya font miring */
+          margin-bottom: 20px; /* Jarak antar elemen */
+      }
+      .header-container {
+          background-color: #f8f9fa; /* Warna latar belakang */
+          padding: 20px; /* Padding di dalam kotak */
+          border-radius: 8px; /* Sudut bulat */
+          border: 1px solid #eaeaea; /* Border solid */
+          margin-bottom: 20px; /* Jarak antar elemen */
+      }
+      @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animated-text {
+    animation: fadeIn 2s ease-in-out;
+}
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e3e6f0;
+    color: #333;
+    padding: 10px 15px;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.input-file {
+    margin-bottom: 10px;
+}
+
+.preview-container img {
+    width: 100%; /* Menyesuaikan lebar gambar dengan kontainer */
+    height: auto; /* Mempertahankan rasio aspek */
+    display: block; /* Menampilkan gambar */
+    margin-top: 10px; /* Memberi ruang di atas gambar */
+}
+
+
+
+/* Card styling */
+.card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    margin: 20px;
+    overflow: hidden; /* Ensures nothing spills out of card */
+}
+
+.card-header {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 16px 24px;
+}
+
+.card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Aligns items vertically */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Spacing between form groups */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Includes padding in width */
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+}
+
+button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* Shadow effect on hover */
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 15px;
+    }
+
+    button {
+        width: 100%; /* Full-width buttons on smaller screens */
+    }
+}
+
+
+/* Styling untuk tombol Simpan Resep */
+.btn-save {
+    background-color: #4CAF50; /* Warna hijau cerah */
+    color: blu;
+    padding: 15px 32px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* Membuat tombol block level untuk mengambil lebar penuh */
+    width: 100%; /* Membuat tombol lebar penuh */
+    box-shadow: 0 5px 15px rgba(0, 76, 59, 0.2); /* Memberikan sedikit bayangan */
+    transition: background-color 0.3s ease; /* Transisi untuk hover effect */
+}
+
+.btn-save:hover {
+    background-color: #45a049; /* Warna sedikit lebih gelap saat di-hover */
+}
+
+/* Mengatur margin atas untuk memberi jarak dengan elemen sebelumnya */
+.form-group .btn-save {
+    margin-top: 20px;
+}
+/* Styling umum untuk form elements untuk meningkatkan konsistensi */
+.input-text, .form-control, textarea, button {
+    width: 100%; /* Menggunakan lebar penuh untuk komponen form */
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px; /* Memberikan ruang yang cukup antar elemen */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styling khusus untuk tombol */
+button {
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Menambahkan transisi untuk efek hover */
+    align-self: center; /* Menengahkan tombol dalam container-nya */
+    display: block; /* Block level agar mudah mengatur margin */
+}
+
+/* Menambahkan spasi lebih pada bagian bawah form untuk tombol simpan */
+#recipeForm {
+    margin-bottom: 30px; /* Memberikan ruang ekstra di bawah form sebelum tombol simpan */
+}
+
+/* Styling untuk tombol Simpan Resep agar lebih menonjol */
+.btn-save {
+    background-color: #28a745; /* Warna hijau cerah */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 76, 59, 0.2);
+}
+
+.btn-save:hover {
+    background-color: #218838; /* Warna lebih gelap saat hover */
+}
+
+/* Memastikan semua teks di dalam card memiliki padding yang cukup */
+.card-body {
+    padding: 20px;
+}
+
+/* Menyelaraskan judul card */
+.card-title {
+    font-size: 20px;
+    color: #333;
+}
+
+/* Styling untuk container preview gambar */
+.preview-container img {
+    display: block; /* Menampilkan gambar jika ada */
+    max-width: 100%; /* Memastikan gambar tidak melebihi lebar container */
+    height: auto; /* Mempertahankan rasio aspek gambar */
+}
+
+
+
+/* Menyelaraskan kolom bahan dan langkah */
+.row {
+    display: flex;
+    justify-content: space-between; /* Memberikan jarak yang sama antar kolom */
+}
+
+.col-half {
+    flex: 1; /* Membuat kedua kolom memiliki lebar yang sama */
+    padding-right: 10px; /* Padding untuk kolom kiri */
+}
+
+.col-half:last-child {
+    padding-right: 0; /* Menghilangkan padding pada kolom terakhir */
+    padding-left: 10px; /* Memberi padding pada sisi kiri untuk kolom kedua */
+}
+
+
+    </style>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="assets/css/kaiadmin.min.css" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="assets/css/demo.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar sidebar-style-2" data-background-color="dark">
+        <div class="sidebar-logo">
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="index.html" class="logo">
+              <!-- <img
+                src="assets/img/kaiadmin/logo_light.svg"
+                alt="navbar brand"
+                class="navbar-brand"
+                height="20"
+              /> -->
+              <b style="color: white;">Resep Makanan</b>
+            </a>
+            <div class="nav-toggle">
+              <button class="btn btn-toggle toggle-sidebar">
+                <i class="gg-menu-right"></i>
+              </button>
+              <button class="btn btn-toggle sidenav-toggler">
+                <i class="gg-menu-left"></i>
+              </button>
+            </div>
+          </div>
+          <!-- End Logo Header -->
+        </div>
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+            
+          </div>
+        </div>
+      </div>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="main-header">
+          <div class="main-header-logo">
+            <!-- Logo Header -->
+            <div class="logo-header" data-background-color="dark">
+              <a href="index.html" class="logo">
+                <img
+                  src="assets/img/kaiadmin/logo_light.svg"
+                  alt="navbar brand"
+                  class="navbar-brand"
+                  height="20"
+                />
+              </a>
+              <button
+                class="navbar-toggler sidenav-toggler ms-auto"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="collapse"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon">
+                  <i class="gg-menu-left"></i>
+                </span>
+              </button>
+              <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+              </button>
+            </div>
+            <!-- End Logo Header -->
+          </div>
+          <!-- Navbar Header -->
+          <nav
+            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
+          >
+            <div class="container-fluid">
+              <nav
+                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
+              >
+                
+              </nav>
+
+              <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+
+                <li class="nav-item topbar-user dropdown hidden-caret">
+                  <a
+                    class="dropdown-toggle profile-pic"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    aria-expanded="false"
+                  >
+                    <div class="avatar-sm">
+                      <img
+                        src="assets/img/profile.jpg"
+                        alt="..."
+                        class="avatar-img rounded-circle"
+                      />
+                    </div>
+                    <span class="profile-username">
+                      <span class="op-7">Hi,</span>
+                      <span class="fw-bold">Hizrian</span>
+                    </span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-user animated fadeIn">
+                    <div class="dropdown-user-scroll scrollbar-outer">
+                      <li>
+                        <div class="user-box">
+                          <div class="avatar-lg">
+                            <img
+                              src="assets/img/profile.jpg"
+                              alt="image profile"
+                              class="avatar-img rounded"
+                            />
+                          </div>
+                          <div class="u-text">
+                            <h4>Hizrian</h4>
+                            <p class="text-muted">hello@example.com</p>
+                            
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="dropdown-divider"></div>
+                        <!-- <a class="dropdown-item" href="#">My Profile</a> -->
+                        <a class="dropdown-item" href="#">Logout</a>
+                      </li>
+                    </div>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <!-- End Navbar -->
+        </div>
+
+        <div class="container">
+          <div class="page-inner">
+            <div
+              class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
+            >
+              <div>
+                <h3 class="fw-bold mb-3">Edit Resep Makanan </h3>
+                <h6 class="op-7 mb-2">Silahkan Anda Isi Resep Makanan Dibawah Ini</h6>
+
+              </div>
+              
+            </div>
+            
+
+            <div class="row">
+              <div class="col-md-8">
+                <div class="container">
+                  <div class="card">
+                      <div class="card-header">
+                          <h1 class="card-title">Form Pengisian Resep</h1>
+                          
+                        
+                      </div>
+                      <div class="card-body">
+                          <form id="recipeForm">
+                              <div class="form-group">
+                                  <label for="title">Judul Resep</label>
+                                  <input type="text" class="form-control" id="title" name="title" placeholder="Masukkan judul resep">
+                              </div>
+                              <div class="form-group">
+                                  <label for="description">Deskripsi</label>
+                                  <textarea class="form-control" id="description" name="description" placeholder="Deskripsi resep"></textarea>
+                              </div>
+                              <div class="row">
+                                <div class="col-half">
+                                    <div class="form-group">
+                                        <label>Bahan-bahan</label>
+                                        <div id="ingredientsContainer">
+                                            <!-- Ingredients dynamically added here -->
+                                        </div>
+                                        <button type="button" id="addIngredientButton" class="btn btn-primary">Tambah Bahan</button>
+                                    </div>
+                                </div>
+                                <div class="col-half">
+                                    <div class="form-group">
+                                        <label>Langkah-langkah</label>
+                                        <div id="stepsContainer">
+                                            <!-- Steps dynamically added here -->
+                                        </div>
+                                        <button type="button" id="addStepButton" class="btn btn-secondary">Tambah Langkah</button>
+                                    </div>
+                                </div>
+                            </div>
+                          </form>
+                          <div class="form-group">
+                            <button type="button" class=" btn-save">Simpan Resep</button>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+              
+            </div>
+            
+            
+            
+              <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Upload Gambar Makanan</strong>
+                    </div>
+                    <div class="card-body pb-0">
+                        <p class="text-muted">Pilih gambar yang ingin Anda upload:</p>
+                        <input type="file" id="imageUpload" accept="image/*" class="form-control mb-2">
+                        <div class="preview-container">
+                            <p class="text-muted">Preview:</p>
+                            <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 100%; display: none;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            </div>
+            
+           
+            
+            
+          </div>
+        </div>
+
+        <footer class="footer">
+          
+        </footer>
+      </div>
+
+      <!-- Custom template | don't include it in your project! -->
+      <div class="custom-template">
+        <div class="title">Settings</div>
+        <div class="custom-content">
+          <div class="switcher">
+            <div class="switch-block">
+              <h4>Logo Header</h4>
+              <div class="btnSwitch">
+                <button
+                  type="button"
+                  class="selected changeLogoHeaderColor"
+                  data-color="dark"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="purple"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="light-blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="green"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="orange"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="red"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="white"
+                ></button>
+                <br />
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="dark2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="purple2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="light-blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="green2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="orange2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="red2"
+                ></button>
+              </div>
+            </div>
+            <div class="switch-block">
+              <h4>Navbar Header</h4>
+              <div class="btnSwitch">
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="dark"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="purple"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="light-blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="green"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="orange"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="red"
+                ></button>
+                <button
+                  type="button"
+                  class="selected changeTopBarColor"
+                  data-color="white"
+                ></button>
+                <br />
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="dark2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="purple2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="light-blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="green2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="orange2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="red2"
+                ></button>
+              </div>
+            </div>
+            <div class="switch-block">
+              <h4>Sidebar</h4>
+              <div class="btnSwitch">
+                <button
+                  type="button"
+                  class="changeSideBarColor"
+                  data-color="white"
+                ></button>
+                <button
+                  type="button"
+                  class="selected changeSideBarColor"
+                  data-color="dark"
+                ></button>
+                <button
+                  type="button"
+                  class="changeSideBarColor"
+                  data-color="dark2"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-toggle">
+          <i class="icon-settings"></i>
+        </div>
+      </div>
+      <!-- End Custom template -->
+    </div>
+    <!--   Core JS Files   -->
+    <script src="assets/js/core/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="assets/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="assets/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery Vector Maps -->
+    <script src="assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="assets/js/plugin/jsvectormap/world.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="assets/js/kaiadmin.min.js"></script>
+
+    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+    <script src="assets/js/setting-demo.js"></script>
+    <script src="assets/js/demo.js"></script>
+    <script type="module" src="./js/sidebar.js"></script>
+    <script type="module" src="./js/recipe/get-resep-id.js"></script>
+    <script type="module" src="./js/recipe/update-resep.js"></script>
+    <script type="module" src="./js/recipe/tambah-row.js"></script>
+
+    <script>
+      $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#177dff",
+        fillColor: "rgba(23, 125, 255, 0.14)",
+      });
+
+      $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#f3545d",
+        fillColor: "rgba(243, 84, 93, .14)",
+      });
+
+      $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#ffa534",
+        fillColor: "rgba(255, 165, 52, .14)",
+      });
+    </script>
+    <script>
+      document.getElementById('imageUpload').addEventListener('change', function(event) {
+          const file = event.target.files[0];
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              const imagePreview = document.getElementById('imagePreview');
+              imagePreview.src = e.target.result;
+              imagePreview.style.display = 'block';  // Menampilkan preview
+          };
+          reader.readAsDataURL(file);  // Membaca file sebagai URL data
+      });
+      </script>
+      
+  </body>
+</html>
