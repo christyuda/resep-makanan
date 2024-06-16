@@ -30,8 +30,8 @@ document.getElementById("signInButton").addEventListener("click", function (even
   })
   .then((data) => {
     if (data.token) {
-      localStorage.setItem("userName", data.role[0].nama);
-      localStorage.setItem("userEmail", data.role[0].email);
+      localStorage.setItem("userName", data.role.nama);
+      localStorage.setItem("userEmail", data.role.email);
       localStorage.setItem("LOGIN", data.token);
       document.cookie = `LOGIN=${data.token};path=/;max-age=3600`;
 
@@ -42,9 +42,9 @@ document.getElementById("signInButton").addEventListener("click", function (even
         confirmButtonText: 'OK'
       }).then((result) => {
         if (result.isConfirmed) {
-          if ( data.role[0].id_role === 1) {
+          if ( data.role.id_role === 1) {
             window.location.href = "dashboard-admin.html";
-          } else if (data.role[0].id_role === 2) {
+          } else if (data.role.id_role === 2) {
             window.location.href = "dashboard-user.html";
           }
         }
